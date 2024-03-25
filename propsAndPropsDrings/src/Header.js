@@ -1,9 +1,7 @@
 import React from 'react'
 
 const Header = ({title}) => {
-    //*** */ saving inline style in variable
-  // const headerStyle = {background: "royalblue", color: "goldenrod", fontSize: "30px"}
-
+   
   return (
     <header >
         <h1>{title}</h1>
@@ -20,5 +18,9 @@ const Header = ({title}) => {
     // </header>
   );
 };
+
+Header.defaultProps = {
+  title:"Default Title"
+}
 
 export default Header

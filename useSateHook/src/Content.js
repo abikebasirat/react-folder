@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { FaTrash } from "react-icons/fa6";
-// import { IoMdCheckmark } from "react-icons/io";
+import React, { useState } from "react";
+import { FaTrashRestoreAlt } from "react-icons/fa";
 import "./content.css";
 
 const Content = () => {
-  // const [name, setName] = useState('Bsirah')
+  // const [name, setName] = useState('Basirah')
   const [items, setItems] = useState([
     {
       id: 1,
@@ -19,45 +18,53 @@ const Content = () => {
     {
       id: 3,
       checked: false,
-      item: " Semo",
+      item: "Semo",
     },
     {
       id: 4,
       checked: false,
-      item: " Ponmo",
+      item: "Ponmo",
     },
-  ])
+  ]);
 
-  // const handleNameChange = () => {
-  //     const names = ["Fulaani", "Hoyee", "Zainabuuuuu"];
-  //     const int = Math.floor(Math.random() * 3);
-  //     setName(names[int])
-  //   };
+  const handleCheck = (id) => {
+    // console.log(key: ${id});
+    const listItems = items.map((item) =>
+      item.id === id ? { ...item, checked: !item.checked } : item
+    );
+    setItems(listItems);
 
-  //   const handleClick2 = (name) => {
-  //     console.log(`${name} was Clicked`)
-  //   }
+    localStorage.setItem("shoppinglist", JSON.stringify(listItems));
+  };
+
+  const handleDelete = (id) => {
+      const listItems = items.filter((item) => item.id !== id); 
+      setItems(listItems);
+  }
+
   return (
     <main className="student">
-      {/* <h1>{name}</h1>
-        <button onClick={handleNameChange}>Cange Name</button>
-        <button onClick={handleClick}>Click me</button>
-        <button onDoubleClick={() => handleClick2("Hayzed")}>Click me</button> */}
-
       <ul>
-        {items.map((item) => (
-          <li className="item" key={item.id}>
-            <input type="checkbox" checked={item.checked} />
+        {items.map((item) => {
+          return (
+            <li className="item" key={item.id}>
+              <input
+                type="checkbox"
+                onClick={() => handleCheck(item.id)}
+                checked={item.checked}
+              />
 
-            <label>{item.item}</label>
-            <FaTrash/>
-            {/* <IoMdCheckmark /> */}
-          </li>
-        ))}
+              <label onDoubleClick={() => handleDelete(item.id)} >{item.item}</label>
+              <FaTrashRestoreAlt
+             // onClick={() => handleDelete(item.id)} //
+              />
+              
+            </li>
+          );
+        })}
       </ul>
     </main>
   );
 };
 
 export default Content;
-
